@@ -79,6 +79,8 @@ export class UsuarioController {
       
       const token = await this.generarToken(usuario);
       console.log('Token:', token);
+      throw new HttpException('Usuario encontrado', HttpStatus.ACCEPTED);
+
       
       return { token };
   }

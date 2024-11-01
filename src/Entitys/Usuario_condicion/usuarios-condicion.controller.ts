@@ -39,5 +39,14 @@ async getMedicamentos(@Param('id') id: number) {
     return usuario;
   }
 
+  @Post('actualizar-condicion')
+  async cambiarUsuarioAUsuarioCondicion(
+    @Body('usuarioId') usuarioId: number,
+    @Body('condicionId') condicionId: number,
+    @Body('codigoInvitacion') codigoInvitacion: number,
+  ) {
+    return this.usuariosCondicionService.cambiarUsuarioAUsuarioCondicion(usuarioId, condicionId, codigoInvitacion);
+  }
+
  
-}
+} 

@@ -4,12 +4,18 @@ import { Repository } from 'typeorm';
 import { UsuarioCondicion } from './usuarios-condicion.entity';
 import { Medicamento } from '../medicamentos/medicamento.entity';
 import { Usuario } from '../usuarios/usuario.entity';
+import { Condicion } from '../condiciones/condiciones.entity';
 
 @Injectable()
 export class UsuariosCondicionService {
   constructor(
     @InjectRepository(UsuarioCondicion)
     private readonly usuarioCondicionRepository: Repository<UsuarioCondicion>,
+    @InjectRepository(Usuario)
+    private usuarioRepository: Repository<Usuario>,
+    
+    @InjectRepository(Condicion)
+    private condicionRepository: Repository<Condicion>,
   ) {}
 
   findAll(): Promise<UsuarioCondicion[]> {
@@ -52,7 +58,22 @@ export class UsuariosCondicionService {
   }
 
 
-  
+  async cambiarUsuarioAUsuarioCondicion(usuarioId: number, condicionId: number, codigoInvitacion: number): Promise<UsuarioCondicion> {
+    const usuario = await this.usuarioRepository.findOne({ where: { id_usuario: usuarioId } });
+    const condicion = await this.condicionRepository.findOne({ where: { idcondicion: condicionId } });
+
+    if (!usuario || !condicion) {
+      throw new Error('Usuario o condición no encontrada');
+    }
+
+    const usuarioCondicion = this.usuarioCondicionRepository.create({
+      usuario,
+      condicion,
+      codigo_invitacion: codigoInvitacion,
+    });
+
+    return this.usuarioCondicionRepository.save(usuarioCondicion);
+  }
   
   
 }
