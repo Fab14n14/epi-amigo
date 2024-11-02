@@ -4,10 +4,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsuariosCondicionController } from './usuarios-condicion.controller';
 import { UsuariosCondicionService } from './usuarios-condicion.service';
 import { UsuarioCondicion } from './usuarios-condicion.entity';
+import { Usuario } from '../usuarios/usuario.entity';
+import { Condicion } from '../condiciones/condiciones.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([UsuarioCondicion]),
+    TypeOrmModule.forFeature([UsuarioCondicion, Usuario, Condicion]),
   ],
   controllers: [UsuariosCondicionController],
   providers: [UsuariosCondicionService],

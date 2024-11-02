@@ -16,7 +16,7 @@ export class CondicionService {
 
   async findOne(id: number): Promise<Condicion> {
     return this.condicionRepository.findOne({
-      where: { idcondicion: id },
+      where: { id_condicion: id },
     });
   }
 
@@ -26,7 +26,7 @@ export class CondicionService {
 
   async findByID(id: number): Promise<Condicion> {
     return this.condicionRepository.findOne({
-      where: { idcondicion: id },
+      where: { id_condicion: id },
     });
   }
 }
