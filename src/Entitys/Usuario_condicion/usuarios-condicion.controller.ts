@@ -20,6 +20,8 @@ export class UsuariosCondicionController {
 
   @Get(':id/medicamentos')
 async getMedicamentos(@Param('id') id: number) {
+    
+
   return this.usuariosCondicionService.findMedicamentosByID(id);
 }
 
@@ -44,8 +46,9 @@ async getMedicamentos(@Param('id') id: number) {
     @Body('usuarioId') usuarioId: number,
     @Body('condicionId') condicionId: number,
     @Body('codigoInvitacion') codigoInvitacion: number,
+    @Body('codeqr') codeqr: string,
   ) {
-    return this.usuariosCondicionService.cambiarUsuarioAUsuarioCondicion(usuarioId, condicionId, codigoInvitacion);
+    return this.usuariosCondicionService.cambiarUsuarioAUsuarioCondicion(usuarioId, condicionId, codigoInvitacion , codeqr);
   }
 
  

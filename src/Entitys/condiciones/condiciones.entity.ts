@@ -1,12 +1,16 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+// condicion.entity.ts
 
-@Entity()
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { UsuarioCondicion } from '../Usuario_condicion/usuarios-condicion.entity';
+
+@Entity('condiciones') 
 export class Condicion {
-    @PrimaryGeneratedColumn()
-    idcondicion: number;
+  @PrimaryGeneratedColumn()
+  id_condicion: number;
 
-    @Column({ type: 'varchar' })
-    tipo_condicion: string; // Este campo no debe ser nulo
+  @Column({ type: 'varchar', length: 100 })
+  tipo_condicion: string;
 
-    // Otros campos...
+  @OneToMany(() => UsuarioCondicion, (usuarioCondicion) => usuarioCondicion.condicion)
+  usuariosCondicion: UsuarioCondicion[];
 }
