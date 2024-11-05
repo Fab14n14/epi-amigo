@@ -21,7 +21,10 @@ export class Usuario {
   @Column({ type: 'date' })
   fecha_nac: Date;
 
-  @Column({ type: 'bytea' })
+  @Column({ length: 50 })
+  sexo: string;
+
+  @Column({ length: 50 })
   contrasena: string ;
 
   @OneToMany(() => UsuarioCondicion, (usuarioCondicion) => usuarioCondicion.usuario)

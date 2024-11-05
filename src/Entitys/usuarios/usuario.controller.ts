@@ -14,6 +14,7 @@ import { Usuario } from './usuario.entity';
 import { LoginDto } from './login.dto';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
+import { NuevoRegistroDto } from './NuevoRegistrodto';
 
 @Controller('usuarios')
 export class UsuarioController {
@@ -45,15 +46,22 @@ export class UsuarioController {
   }
 
   @Post('registro')
-  async registro(@Body() usuario: Usuario): Promise<Usuario> {
-      const existeUsuario = await this.usuarioService.findByCorreo(usuario.correo);
+  async registro(@Body() nuevoRegistroDto: NuevoRegistroDto): Promise<Usuario> {
+      // Verifica si el usuario ya existe
+      const existeUsuario = await this.usuarioService.findByCorreo(nuevoRegistroDto.correo);
       if (existeUsuario) {
           throw new HttpException('Usuario ya existe', HttpStatus.CONFLICT);
       }
 
-      // Cifra la contraseña
-      const contrasenaCifrada = await bcrypt.hash(usuario.contrasena, 10);
-      usuario.contrasena = contrasenaCifrada;
+      // Crea un nuevo usuario usando los datos del DTO
+      const usuario = new Usuario();
+      usuario.rut = nuevoRegistroDto.rut;
+      usuario.nombre = nuevoRegistroDto.nombre;
+      usuario.apellido = nuevoRegistroDto.apellido;
+      usuario.correo = nuevoRegistroDto.correo;
+      usuario.fecha_nac = nuevoRegistroDto.fecha_nac;
+      usuario.sexo = nuevoRegistroDto.sexo;
+      usuario.contrasena = nuevoRegistroDto.contrasena; 
 
       return this.usuarioService.create(usuario);
   }
@@ -77,12 +85,11 @@ export class UsuarioController {
           throw new HttpException('Contraseña inválida', HttpStatus.UNAUTHORIZED);
       }
       
+      // Genera el token y lo retorna en una respuesta exitosa
       const token = await this.generarToken(usuario);
       console.log('Token:', token);
-      throw new HttpException('Usuario encontrado', HttpStatus.ACCEPTED);
-
-      
-      return { token };
+  
+      return { token };  // Retorna el token como parte de la respuesta
   }
 
   private async verificarContrasena(contrasenaIngresada: string, contrasenaAlmacenada: string): Promise<boolean> {
