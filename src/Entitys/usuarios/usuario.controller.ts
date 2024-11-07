@@ -67,7 +67,7 @@ export class UsuarioController {
   }
 
   @Post('login')
-  async login(@Body() loginDto: LoginDto): Promise<{ token: string }> {
+  async login(@Body() loginDto: LoginDto): Promise<{ token: string , tipoUsuario: string }> {
       console.log('LoginDto:', loginDto);
       
       // Busca el usuario por correo
@@ -84,12 +84,15 @@ export class UsuarioController {
       if (!esContrasenaValida) {
           throw new HttpException('Contraseña inválida', HttpStatus.UNAUTHORIZED);
       }
+       // Determina el tipo de usuario
+    const tipoUsuario = await this.usuarioService.esUsuarioCondicion(usuario.id_usuario) ? 'usuario_condicion' : 'Contacto emergencia';
       
       // Genera el token y lo retorna en una respuesta exitosa
       const token = await this.generarToken(usuario);
       console.log('Token:', token);
+       console.log('tipo usuario:', tipoUsuario);
   
-      return { token };  // Retorna el token como parte de la respuesta
+      return { token , tipoUsuario };  // Retorna el token como parte de la respuesta
   }
 
   private async verificarContrasena(contrasenaIngresada: string, contrasenaAlmacenada: string): Promise<boolean> {
