@@ -44,7 +44,7 @@ async getMedicamentos(@Param('id') id: number) {
   @Post('actualizar-condicion')
   async cambiarUsuarioAUsuarioCondicion(
     @Body('usuarioId') usuarioId: number,
-    @Body('condicionId') condicionId: number,
+    @Body('condicio nId') condicionId: number,
     @Body('codigoInvitacion') codigoInvitacion: number,
     @Body('codeqr') codeqr: string,
   ) {
