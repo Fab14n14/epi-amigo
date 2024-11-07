@@ -34,6 +34,11 @@ export class UsuarioService {
     return this.usuarioRepository.save(usuario);
   }
 
+  async esUsuarioCondicion(idUsuario: number): Promise<boolean> {
+    const usuarioCondicion = await this.usuarioCondicionRepository.findOne({ where: { id_usuario: idUsuario } });
+    return !!usuarioCondicion; // Devuelve true si existe una relación en usuario_condicion
+}
+
   async update(id: number, usuario: Usuario): Promise<Usuario> {
     await this.usuarioRepository.update(id, usuario);
     return this.usuarioRepository.findOne({ where: { id_usuario: id } });
