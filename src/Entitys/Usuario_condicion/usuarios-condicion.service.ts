@@ -22,12 +22,39 @@ export class UsuariosCondicionService {
     return this.usuarioCondicionRepository.find({ relations: ['condicion', 'medicamento'] });
   }
 
-  findOne(id: number): Promise<UsuarioCondicion | null> {
+  async findOne(id: number): Promise<UsuarioCondicion | null> {
     return this.usuarioCondicionRepository.findOne({
       where: { id_usuario_condicion: id },
-      relations: ['condicion', 'medicamento'],
     });
   }
+
+  async updateCodigoInvitacion(id: number, codigo_invitacion: string): Promise<void> {
+    // Validar si el código de invitación es un número
+    const codigoInvitacionNumerico = Number(codigo_invitacion);
+    if (isNaN(codigoInvitacionNumerico)) {
+      throw new Error('Código de invitación inválido');
+    }
+  
+    // Buscar la entidad en la base de datos para asegurarse de que existe
+    const usuarioCondicion = await this.usuarioCondicionRepository.findOne({
+      where: {
+        id_usuario: id  // Asegúrate de que la propiedad coincida con la definición de la entidad
+      }
+    });
+    if (!usuarioCondicion) {
+      throw new Error('No se encontró el registro con el ID proporcionado');
+    }
+  
+    // Actualizar el código de invitación
+    usuarioCondicion.codigo_invitacion = codigoInvitacionNumerico;
+  
+    try {
+      // Usar save() en lugar de update() para asegurar que los cambios se guarden correctamente
+      await this.usuarioCondicionRepository.save(usuarioCondicion);
+    } catch (error) {
+      throw new Error(`Error al guardar el código de invitación: ${error.message}`);
+    }
+  } 
 
   create(usuario: Partial<UsuarioCondicion>): Promise<UsuarioCondicion> {
     const newUser = this.usuarioCondicionRepository.create(usuario);
@@ -65,6 +92,10 @@ export class UsuariosCondicionService {
       .then(result => result?.usuario);
   }
 
+  async update(id: number, usuarioCondicion: UsuarioCondicion): Promise<UsuarioCondicion> {
+    await this.usuarioCondicionRepository.update(id, usuarioCondicion);
+    return this.findOne(id);
+}
 
   async cambiarUsuarioAUsuarioCondicion(usuarioId: number, condicion_Id: number, codigoInvitacion: number , codeqr: string): Promise<UsuarioCondicion> {
     const usuario = await this.usuarioRepository.findOne({ where: { id_usuario: usuarioId } });
@@ -88,5 +119,11 @@ export class UsuariosCondicionService {
     return this.usuarioCondicionRepository.save(usuarioCondicion);
   }
   
+  async findByUsuarioId(id: number): Promise<UsuarioCondicion | null> {
+    return this.usuarioCondicionRepository.findOne({
+      where: { usuario: { id_usuario: id } }, // Usamos 'id_usuario' en lugar de 'id'
+      relations: ['usuario', 'condicion', 'medicamentos', 'contactosEmergencia'], // Las relaciones necesarias
+    });
+  }
   
 }

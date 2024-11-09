@@ -67,7 +67,7 @@ export class UsuarioController {
   }
 
   @Post('login')
-  async login(@Body() loginDto: LoginDto): Promise<{ token: string , tipoUsuario: string }> {
+  async login(@Body() loginDto: LoginDto): Promise<{ token: string , tipoUsuario: string  ,  id: number}> {
       console.log('LoginDto:', loginDto);
       
       // Busca el usuario por correo
@@ -89,10 +89,15 @@ export class UsuarioController {
       
       // Genera el token y lo retorna en una respuesta exitosa
       const token = await this.generarToken(usuario);
+
+      
+
       console.log('Token:', token);
        console.log('tipo usuario:', tipoUsuario);
+       console.log('ID : ' , usuario.id_usuario )
+       
   
-      return { token , tipoUsuario };  // Retorna el token como parte de la respuesta
+      return { token , tipoUsuario , id:usuario.id_usuario  };  // Retorna el token como parte de la respuesta
   }
 
   private async verificarContrasena(contrasenaIngresada: string, contrasenaAlmacenada: string): Promise<boolean> {
