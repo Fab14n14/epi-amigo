@@ -46,6 +46,17 @@ export class MedicamentosController {
     return this.medicamentosService.findByUsuario(usuarioId);
   }
 
+  @Post()
+  async createMedicamento(
+    @Body('id_usuario_condicion') usuarioId: number,
+    @Body() medicamentoData: Partial<Medicamento>,
+  ): Promise<Medicamento> {
+    if (!usuarioId) {
+      throw new Error('El usuarioId es requerido en el cuerpo de la solicitud.');
+    }
+    return this.medicamentosService.create(medicamentoData, usuarioId);
+  }
+
   // Actualizar un medicamento por ID
   @Put(':id')
   async update(

@@ -29,7 +29,7 @@ export class MedicamentosService {
     } catch (error) {
       throw new Error(`Error al crear medicamento: ${error.message}`);
     }
-  }
+  } 
 
   async findByUsuario(usuarioId: number): Promise<Medicamento[]> {
     const medicamentos = await this.medicamentoRepository.find({
