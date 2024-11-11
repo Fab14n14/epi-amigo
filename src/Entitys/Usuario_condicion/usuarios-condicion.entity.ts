@@ -3,6 +3,7 @@ import { Usuario } from '../usuarios/usuario.entity';
 import { Condicion } from '../condiciones/condiciones.entity';
 import { Medicamento } from '../medicamentos/medicamento.entity';
 import { ContactoEmergencia } from '../contactos-emergencia/contacto-emergencia.entity';
+import { UsuarioTipoCondicion } from '../UsuarioTipoCondicion/UsuarioTipoCondicion.entity';
 
 @Entity('usuarios_condicion')
 export class UsuarioCondicion {
@@ -24,11 +25,11 @@ export class UsuarioCondicion {
 
   // Relación ManyToOne con Condicion
   @ManyToOne(() => Condicion, (condicion) => condicion.usuariosCondicion, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'id_condicion' })
+  @JoinColumn({ name: 'id_usuario_condicion' })
   condicion: Condicion;
 
   // Columna para código QR
-  @Column({ type: 'varchar', unique: true, nullable: false })
+  @Column({ type: 'varchar', unique: true })
   codeqr: string;
 
   // Relación OneToMany con Medicamento
@@ -38,4 +39,8 @@ export class UsuarioCondicion {
   // Relación OneToMany con ContactoEmergencia
   @OneToMany(() => ContactoEmergencia, (contacto) => contacto.usuarioCondicion)
   contactosEmergencia: ContactoEmergencia[];
+
+   // Nueva relación OneToMany con UsuarioTipoCondicion
+   @OneToMany(() => UsuarioTipoCondicion, (usuarioTipoCondicion) => usuarioTipoCondicion.usuarioCondicion)
+   usuarioTiposCondiciones: UsuarioTipoCondicion[];
 }

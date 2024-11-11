@@ -9,8 +9,9 @@ import { ContactosEmergenciaModule } from './Entitys/contactos-emergencia/contac
 import { Medicamento } from './Entitys/medicamentos/medicamento.entity';
 import { join } from 'path'; // Para manejar rutas de archivos
 import { CrisisModule } from './Entitys/crisis/crisis.module';
-import { SintomasModule } from './Entitys/sintomas/sintomas.module';
-import { InvitacionesModule} from './Entitys/invitaciones/invitaciones.module'
+import { SintomasModule } from './Entitys/sintomas/sintomas.module'; 
+import { UsuarioTipoCondicionModule } from './Entitys/UsuarioTipoCondicion/UsuarioTipoCondicion.module';
+
 
 @Module({
   imports: [
@@ -43,6 +44,7 @@ import { InvitacionesModule} from './Entitys/invitaciones/invitaciones.module'
     ContactosEmergenciaModule,
     CrisisModule ,
     SintomasModule ,
+    UsuarioTipoCondicionModule ,
    
   ],
 })

@@ -63,7 +63,11 @@ export class UsuarioController {
       usuario.sexo = nuevoRegistroDto.sexo;
       usuario.contrasena = nuevoRegistroDto.contrasena; 
 
-      return this.usuarioService.create(usuario);
+         // Guarda al usuario en la base de datos
+    const usuarioGuardado = await this.usuarioService.create(usuario);
+
+    // Devuelve el usuario completo, incluyendo el id asignado
+    return usuarioGuardado;  // Aquí el usuario completo será devuelto, que incluye el id
   }
 
   @Post('login')

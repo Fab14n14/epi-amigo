@@ -83,13 +83,22 @@ export class UsuariosCondicionService {
     return usuarioCondicion?.medicamentos || [];
   }
 
-  async findUsuarioByCodigoInvitacion(codigoInvitacion: number): Promise<Usuario | null> {
-    return this.usuarioCondicionRepository
+  async findUsuarioByCodigoInvitacion(codigoInvitacion: number): Promise<any> {
+    const usuarioCondicion = await this.usuarioCondicionRepository
       .createQueryBuilder('uc')
       .innerJoinAndSelect('uc.usuario', 'usuario')
       .where('uc.codigo_invitacion = :codigoInvitacion', { codigoInvitacion })
-      .getOne()
-      .then(result => result?.usuario);
+      .getOne();
+  
+    if (!usuarioCondicion) {
+      throw new Error('Usuario no encontrado');
+    }
+  
+    // Devuelves tanto el usuario como el id_usuario_condicion
+    return {
+      usuario: usuarioCondicion.usuario, // El usuario relacionado con la condición
+      id_usuario_condicion: usuarioCondicion.id_usuario_condicion, // El id de la condición
+    };
   }
 
   async update(id: number, usuarioCondicion: UsuarioCondicion): Promise<UsuarioCondicion> {

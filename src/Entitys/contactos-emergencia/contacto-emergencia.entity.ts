@@ -9,6 +9,9 @@ export class ContactoEmergencia {
   @Column({ type: 'varchar', length: 100 })
   relacion: string;
 
+  @Column({ type: 'varchar', length: 100 })
+  id_contacto_usuario: number;
+
   // Relación ManyToOne con UsuarioCondicion
   @ManyToOne(() => UsuarioCondicion, (usuarioCondicion) => usuarioCondicion.contactosEmergencia, {
     onDelete: 'CASCADE', // Si se elimina un usuario_condicion, también se eliminan sus contactos.

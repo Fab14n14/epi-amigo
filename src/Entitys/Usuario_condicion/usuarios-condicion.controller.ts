@@ -13,7 +13,7 @@ export class UsuariosCondicionController {
   findAll(): Promise<UsuarioCondicion[]> {
     return this.usuariosCondicionService.findAll();
   }
-
+  
   @Put(':id/codigo-invitacion')
 async updateCodigoInvitacion(
   @Param('id') id: number,

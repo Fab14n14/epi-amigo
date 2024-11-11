@@ -8,4 +8,6 @@ export class CreateContactoEmergenciaDto {
 
   @IsNotEmpty()
   id_usuario_condicion: number;
+
+  id_contacto_usuario:number ; 
 }
