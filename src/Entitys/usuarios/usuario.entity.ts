@@ -27,6 +27,9 @@ export class Usuario {
   @Column({ length: 50 })
   contrasena: string ;
 
+  @Column({ unique: false })
+  token_dispositivo: string;
+
   @OneToMany(() => UsuarioCondicion, (usuarioCondicion) => usuarioCondicion.usuario)
   usuariosCondicion: UsuarioCondicion[];
 }

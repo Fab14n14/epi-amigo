@@ -31,7 +31,7 @@ export class ContactoEmergenciaController {
   remove(@Param('id') id: number) {
     return this.contactoService.remove(id);
   }
-
+  
   @Get('usuario/:id_contacto')
 findByUsuarioCondicion(@Param('id_contacto') id_contacto: number) {
   return this.contactoService.findByUsuarioCondicion(id_contacto);

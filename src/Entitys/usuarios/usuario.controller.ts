@@ -8,6 +8,7 @@ import {
   Param, 
   HttpException, 
   HttpStatus 
+  ,NotFoundException,Patch
 } from '@nestjs/common';
 import { UsuarioService } from './usuario.service';
 import { Usuario } from './usuario.entity';
@@ -23,6 +24,14 @@ export class UsuarioController {
   @Get()
   async findAll(): Promise<Usuario[]> {
       return this.usuarioService.findAll();
+  }
+
+  @Patch(':id/token-dispositivo')
+  async updateTokenDispositivo(
+    @Param('id') id: number,  // Parametro que recibe el id del usuario
+    @Body('token_dispositivo') token_dispositivo: string,  // El nuevo token recibido en el cuerpo de la solicitud
+  ): Promise<Usuario> {
+    return this.usuarioService.updateTokenDispositivo(id, token_dispositivo);  // Llamamos al servicio para actualizar el token
   }
 
   @Get(':id')
@@ -115,6 +124,24 @@ export class UsuarioController {
       return token;
   }
 
+  @Get(':id/condicion-id')
+  async getUsuarioCondicionId(@Param('id') id: string) {
+    const idUsuario = parseInt(id, 10);
+
+    if (isNaN(idUsuario)) {
+      throw new NotFoundException('ID de usuario inválido.');
+    }
+
+    try {
+      const usuarioCondicionId = await this.usuarioService.getUsuarioCondicionId(idUsuario);
+      return { id_usuario_condicion: usuarioCondicionId };
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        return { message: error.message };
+      }
+      throw error;
+    }
+  }
     
 }
 

@@ -40,13 +40,18 @@ async updateCodigoInvitacion(
   findOne(@Param('id') id: string): Promise<UsuarioCondicion | null> {
     return this.usuariosCondicionService.findOne(+id);
   }
-
   @Get(':id/medicamentos')
-async getMedicamentos(@Param('id') id: number) {
-    
-
-  return this.usuariosCondicionService.findMedicamentosByID(id);
-}
+  async getMedicamentos(@Param('id') idUsuarioCondicion: number) {
+    const medicamentos = await this.usuariosCondicionService.findMedicamentosByID(idUsuarioCondicion);
+  
+    if ('message' in medicamentos) {
+      // Devuelve el mensaje si no hay medicamentos
+      return { status: 'info', message: medicamentos.message };
+    }
+  
+    return { status: 'success', data: medicamentos };
+  }
+  
 @Post(':id/codigo-invitacion')
 async actualizarCodigoInvitacion(
   @Param('id') id: string,

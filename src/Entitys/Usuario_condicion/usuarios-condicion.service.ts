@@ -65,23 +65,23 @@ export class UsuariosCondicionService {
     await this.usuarioCondicionRepository.delete(id);
   }
 
-  async findMedicamentosByID(id: number): Promise<Medicamento[]> {
-    const usuarioCondicion = await this.usuarioCondicionRepository
-      .findOne({
-        where: { id_usuario_condicion: id },
-        relations: ['medicamentos'],
-      });
-        if(!usuarioCondicion)
-        {
-          throw new NotFoundException(`Contacto con id ${id} no encontrado`);
-
-        }
-
-       if( usuarioCondicion?.medicamentos.length == 0 ) {
-        throw new NotFoundException(`Contacto no posee medicamentos`)
-       }
-    return usuarioCondicion?.medicamentos || [];
+  async findMedicamentosByID(id: number): Promise<{ message: string } | Medicamento[]> {
+    const usuarioCondicion = await this.usuarioCondicionRepository.findOne({
+      where: { id_usuario_condicion: id },
+      relations: ['medicamentos'],
+    });
+  
+    if (!usuarioCondicion) {
+      return { message: `Usuario con id ${id} no encontrado` };
+    }
+  
+    if (usuarioCondicion.medicamentos.length === 0) {
+      return { message: 'El usuario no posee medicamentos aún' };
+    }
+  
+    return usuarioCondicion.medicamentos;
   }
+    
 
   async findUsuarioByCodigoInvitacion(codigoInvitacion: number): Promise<any> {
     const usuarioCondicion = await this.usuarioCondicionRepository

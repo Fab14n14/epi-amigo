@@ -11,7 +11,8 @@ import { join } from 'path'; // Para manejar rutas de archivos
 import { CrisisModule } from './Entitys/crisis/crisis.module';
 import { SintomasModule } from './Entitys/sintomas/sintomas.module'; 
 import { UsuarioTipoCondicionModule } from './Entitys/UsuarioTipoCondicion/UsuarioTipoCondicion.module';
-
+import { RecursosModule } from './Entitys/recursos/recursos.module';
+import { Recursos } from './Entitys/recursos/recursos.entity';
 
 @Module({
   imports: [
@@ -44,7 +45,9 @@ import { UsuarioTipoCondicionModule } from './Entitys/UsuarioTipoCondicion/Usuar
     ContactosEmergenciaModule,
     CrisisModule ,
     SintomasModule ,
-    UsuarioTipoCondicionModule ,
+    UsuarioTipoCondicionModule ,RecursosModule
+    ,Recursos
+    ,
    
   ],
 })
