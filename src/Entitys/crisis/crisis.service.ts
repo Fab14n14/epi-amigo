@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Crisis } from './crisis.entity';
+import {CreateCrisisDto} from './CreateCrisisDto'
 
 @Injectable()
 export class CrisisService {
@@ -10,8 +11,8 @@ export class CrisisService {
     private crisisRepository: Repository<Crisis>,
   ) {}
 
-  async createCrisis(crisisData: Partial<Crisis>): Promise<Crisis> {
-    const crisis = this.crisisRepository.create(crisisData);
+  async create(createCrisisDto: CreateCrisisDto): Promise<Crisis> {
+    const crisis = this.crisisRepository.create(createCrisisDto);
     return this.crisisRepository.save(crisis);
   }
 
@@ -30,5 +31,11 @@ export class CrisisService {
 
   async deleteCrisis(id: number): Promise<void> {
     await this.crisisRepository.delete(id);
+  }
+
+  async findByUsuarioCondicion(id_usuario_condicion: string ): Promise<Crisis[]> {
+    return this.crisisRepository.find({
+      where: { id_usuario_condicion },
+    });
   }
 }

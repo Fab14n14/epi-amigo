@@ -9,6 +9,5 @@ export class Sintoma {
   @Column({ type: 'varchar', length: 200 })
   descripcion: string;
 
-  @OneToMany(() => Crisis, (crisis) => crisis.sintoma)
   crisis: Crisis[];
 }

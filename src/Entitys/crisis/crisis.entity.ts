@@ -10,12 +10,15 @@ export class Crisis {
   @Column({ type: 'timestamp with time zone' })
   fecha_hora: Date;
 
-  @Column({ type: 'varchar', length: 250 })
+  @Column({ type: 'varchar', length: 550 })
   descripcion: string;
 
-  @ManyToOne(() => Sintoma, (sintoma) => sintoma.crisis)
-  @JoinColumn({ name: 'id_sintoma' })
-  sintoma: Sintoma;
+  @Column({ type: 'varchar'})
+  id_usuario_condicion: string;
+
+  @Column()
+  duracion: number;
+
 
   @ManyToOne(() => UsuarioCondicion, (usuarioCondicion) => usuarioCondicion.id_usuario_condicion)
   @JoinColumn({ name: 'id_usuario_condicion' })
