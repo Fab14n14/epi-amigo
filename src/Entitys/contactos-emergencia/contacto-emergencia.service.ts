@@ -45,10 +45,10 @@ export class ContactoEmergenciaService {
     await this.contactoRepository.remove(contacto);
   }
 
-  async findByUsuarioCondicion(id_usuario_condicion : number): Promise<ContactoEmergencia[]> {
+  async findByUsuarioCondicion(id_usuario_condicion: number): Promise<ContactoEmergencia[]> {
     return this.contactoRepository.find({
       where: { usuarioCondicion: { id_usuario_condicion } },
-      relations: ['usuarioCondicion', 'usuarioCondicion.usuario'],
+      relations: ['usuario'], // Carga la relación con el usuario que es el contacto
     });
   }
 

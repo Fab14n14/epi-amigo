@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { UsuarioCondicion } from '../Usuario_condicion/usuarios-condicion.entity'; // Asegúrate de que el path sea correcto
-
+import { Usuario } from '../usuarios/usuario.entity';
 @Entity('contactos_emergencia')
 export class ContactoEmergencia {
   @PrimaryGeneratedColumn()
@@ -9,8 +9,12 @@ export class ContactoEmergencia {
   @Column({ type: 'varchar', length: 100 })
   relacion: string;
 
-  @Column({ type: 'varchar', length: 100 })
+  @Column({ type: 'number' })
   id_contacto_usuario: number;
+
+  @ManyToOne(() => Usuario, { eager: true })
+  @JoinColumn({ name: 'id_contacto_usuario' }) // Enlace a la tabla usuarios
+  usuario: Usuario;
 
   // Relación ManyToOne con UsuarioCondicion
   @ManyToOne(() => UsuarioCondicion, (usuarioCondicion) => usuarioCondicion.contactosEmergencia, {
