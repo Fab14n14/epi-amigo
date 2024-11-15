@@ -70,7 +70,8 @@ export class UsuarioController {
       usuario.correo = nuevoRegistroDto.correo;
       usuario.fecha_nac = nuevoRegistroDto.fecha_nac;
       usuario.sexo = nuevoRegistroDto.sexo;
-      usuario.contrasena = nuevoRegistroDto.contrasena; 
+      usuario.contrasena = nuevoRegistroDto.contrasena;
+      usuario.tipo_perfil = nuevoRegistroDto.tipo_perfil;    
 
          // Guarda al usuario en la base de datos
     const usuarioGuardado = await this.usuarioService.create(usuario);
@@ -98,7 +99,12 @@ export class UsuarioController {
           throw new HttpException('Contraseña inválida', HttpStatus.UNAUTHORIZED);
       }
        // Determina el tipo de usuario
-    const tipoUsuario = await this.usuarioService.esUsuarioCondicion(usuario.id_usuario) ? 'usuario_condicion' : 'Contacto emergencia';
+    const tipoUsuario = await this.usuarioService.esUsuarioCondicion(usuario.id_usuario) ? 'epileptico' : 'contacto';
+
+    if( tipoUsuario !== loginDto.tipo_perfil ) 
+    {
+      throw new HttpException('Tipo de perfil inválido', HttpStatus.UNAUTHORIZED); 
+    }
       
       // Genera el token y lo retorna en una respuesta exitosa
       const token = await this.generarToken(usuario);

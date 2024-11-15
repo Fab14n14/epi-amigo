@@ -30,6 +30,9 @@ export class Usuario {
   @Column({ unique: false })
   token_dispositivo: string;
 
+  @Column({ unique: false })
+  tipo_perfil: string;
+
   @OneToMany(() => UsuarioCondicion, (usuarioCondicion) => usuarioCondicion.usuario)
   usuariosCondicion: UsuarioCondicion[];
 }

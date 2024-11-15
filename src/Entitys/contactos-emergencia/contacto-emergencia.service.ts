@@ -52,6 +52,15 @@ export class ContactoEmergenciaService {
     });
   }
 
+  async findUsuarioCondicionByContacto(id_contacto_usuario: number): Promise<UsuarioCondicion | null> {
+    const contacto = await this.contactoRepository.findOne({
+      where: { id_contacto_usuario },
+      relations: ['usuarioCondicion'], // Cargar la relación con UsuarioCondicion
+    });
+  
+    return contacto ? contacto.usuarioCondicion : null;
+  }
+
    // Método para buscar contactos de emergencia mediante código QR con datos del usuario
    async findByCodigoQR(codigoQR: string): Promise<any> {
     const usuarioCondicion = await this.usuarioCondicionRepository.findOne({

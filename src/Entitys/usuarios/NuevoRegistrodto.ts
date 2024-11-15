@@ -33,4 +33,10 @@ export class NuevoRegistroDto {
     @IsString()
     @Length(1, 50) // Se puede ajustar según la longitud del campo 'sexo'
     sexo: string;
+    @IsNotEmpty()
+    @IsString()
+    @Length(1, 50) 
+    tipo_perfil : string ; 
 }
+
+

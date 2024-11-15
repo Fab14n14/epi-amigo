@@ -6,4 +6,6 @@ export class LoginDto {
 
   @IsNotEmpty()
   contrasena: string  ;
+  @IsNotEmpty()
+  tipo_perfil:string ; 
 }

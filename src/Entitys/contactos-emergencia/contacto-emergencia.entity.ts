@@ -24,6 +24,6 @@ export class ContactoEmergencia {
   @JoinColumn({ name: 'id_usuario_condicion' }) // Define la clave foránea
   usuarioCondicion: UsuarioCondicion;
   
-  @Column({ type: 'int' })
+  @Column({ type: 'number' })
   id_usuario_condicion: number; // Clave foránea manual
 }
