@@ -1,85 +1,74 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# EpiAmigo
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+EpiAmigo es una aplicación diseñada para mejorar la calidad de vida de las personas con epilepsia y sus cuidadores, ofreciendo herramientas para la autogestión de la condición.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Requisitos Previos
 
-## Description
+1. **PostgreSQL**: Versión 16 con PgAdmin4 instalado para gestionar la base de datos.
+2. **Node.js**: Instalado para gestionar dependencias.
+3. **NestJS**: Framework para el back-end.
+4. **Expo Go**: Instalado en un dispositivo móvil o **Android Studio** en tu PC para ejecutar el front-end.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+---
 
-## Project setup
+## Instrucciones de Instalación
 
-```bash
-$ npm install
-```
+### **Back-end**
 
-## Compile and run the project
+1. **Clonar el repositorio**:  
+   Descarga el código del back-end desde el siguiente enlace:  
+   - [Repositorio back-end](https://github.com/Fab14n14/epi-amigo)
 
-```bash
-# development
-$ npm run start
+2. **Restaurar base de datos**:  
+   Importa la base de datos en PgAdmin mediante la opción de **restore**.
 
-# watch mode
-$ npm run start:dev
+3. **Configurar el archivo `.env`**:  
+   Crea o edita el archivo `.env` en la raíz del proyecto con los siguientes valores:
+   ```env
+   DATABASE_PORT=<puerto de PostgreSQL>
+   DATABASE_USER=<usuario de la base de datos>
+   DATABASE_PASSWORD=<contraseña>
+   DATABASE_NAME=<nombre de la base de datos>
+4. **Instalar dependencias**:
+   En la terminal de Visual Studio Code (VSC), navega al directorio del proyecto y ejecuta:
+   ```bash
+   npm install
+5. **Iniciar el servidor**:
+   Desde la terminal de VSC, ejecuta:
+   ```bash
+   nest start --watch
 
-# production mode
-$ npm run start:prod
-```
+### **Front-end**
+1. **Clonar el repositorio**:
+   Descarga el código del front-end desde el siguiente enlace:
+   - [Repositorio front-end](https://github.com/nattygd/EpiAmigo)
+2. **Eliminar la carpeta node_modules**:
+   Abre Git Bash en VSC, navega al directorio del proyecto y ejecuta:
+   ```bash
+   rm -rf node_modules
+3. **Instalar dependencias**:
+   Ejecuta el siguiente comando:
+   ```bash
+   npm install --legacy-peer-deps
+4. **Configurar la IP para los servicios**:
+   En el archivo config.ts, ubicado dentro de la carpeta app, ingresa tu dirección IP para conectar los servicios creados.
+5. **Verificar conexión a la red Wi-Fi**:
+   Asegúrate de que tu computador y tu dispositivo móvil estén conectados a la misma red Wi-Fi si vas a utilizar un dispositivo móvil.
+6. **Iniciar el proyecto en Expo**:
+   En la terminal de PowerShell de VSC, ejecuta:
+   ```bash
+   npm start
+   ```
+   Esto abrirá la interfaz de Expo.
+7. **Autenticarse en Expo**:
+   Se te solicitará ingresar tu correo o nombre de usuario y contraseña asociados a Expo Go.
+   - [Link de expo go](https://expo.dev/go)
+8. **Ejecutar la aplicación**:
+   - En un dispositivo móvil: Escanea el código QR con la cámara para abrir la aplicación en Expo Go.
+   - En un emulador de Android Studio: Selecciona un emulador en Android Studio y conecta el proyecto utilizando:
+     ```bash
+     shift + a
 
-## Run tests
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+### **Repositorios del proyecto**
+- Back-end: [Repositorio back-end](https://github.com/Fab14n14/epi-amigo)
+- Front-end: [Repositorio front-end](https://github.com/nattygd/EpiAmigo)
