@@ -112,11 +112,11 @@ export class UsuarioController {
       
 
       console.log('Token:', token);
-       console.log('tipo usuario:', tipo_perfil);
+       console.log('tipo usuario:', usuario.tipo_perfil );
        console.log('ID : ' , usuario.id_usuario )
        
   
-      return { token , tipo_perfil , id:usuario.id_usuario  };  // Retorna el token como parte de la respuesta
+      return { token , tipo_perfil:usuario.tipo_perfil , id:usuario.id_usuario  };  // Retorna el token como parte de la respuesta
   }
 
   private async verificarContrasena(contrasenaIngresada: string, contrasenaAlmacenada: string): Promise<boolean> {
