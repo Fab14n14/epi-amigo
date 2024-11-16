@@ -81,7 +81,7 @@ export class UsuarioController {
   }
 
   @Post('login')
-  async login(@Body() loginDto: LoginDto): Promise<{ token: string , tipoUsuario: string  ,  id: number}> {
+  async login(@Body() loginDto: LoginDto): Promise<{ token: string , tipo_perfil: string  ,  id: number}> {
       console.log('LoginDto:', loginDto);
       
       // Busca el usuario por correo
@@ -99,9 +99,9 @@ export class UsuarioController {
           throw new HttpException('Contraseña inválida', HttpStatus.UNAUTHORIZED);
       }
        // Determina el tipo de usuario
-    const tipoUsuario = await this.usuarioService.esUsuarioCondicion(usuario.id_usuario) ? 'epileptico' : 'contacto';
+    const tipo_perfil = await this.usuarioService.esUsuarioCondicion(usuario.id_usuario) ? 'epileptico' : 'contacto';
 
-    if( tipoUsuario !== loginDto.tipo_perfil ) 
+    if( tipo_perfil !== loginDto.tipo_perfil ) 
     {
       throw new HttpException('Tipo de perfil inválido', HttpStatus.UNAUTHORIZED); 
     }
@@ -112,11 +112,11 @@ export class UsuarioController {
       
 
       console.log('Token:', token);
-       console.log('tipo usuario:', tipoUsuario);
+       console.log('tipo usuario:', tipo_perfil);
        console.log('ID : ' , usuario.id_usuario )
        
   
-      return { token , tipoUsuario , id:usuario.id_usuario  };  // Retorna el token como parte de la respuesta
+      return { token , tipo_perfil , id:usuario.id_usuario  };  // Retorna el token como parte de la respuesta
   }
 
   private async verificarContrasena(contrasenaIngresada: string, contrasenaAlmacenada: string): Promise<boolean> {
