@@ -101,7 +101,7 @@ export class UsuarioController {
        // Determina el tipo de usuario
     const tipo_perfil = await this.usuarioService.esUsuarioCondicion(usuario.id_usuario) ? 'epileptico' : 'contacto';
 
-    if( tipo_perfil !== loginDto.tipo_perfil ) 
+    if( tipo_perfil !== usuario.tipo_perfil ) 
     {
       throw new HttpException('Tipo de perfil inválido', HttpStatus.UNAUTHORIZED); 
     }
