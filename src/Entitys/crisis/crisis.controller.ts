@@ -43,7 +43,7 @@ export class CrisisController {
   }
 
   @Get('usuario/:id_usuario_condicion')
-  async getCrisisByUsuarioCondicion(@Param('id_usuario_condicion') id_usuario_condicion: string) {
+  async getCrisisByUsuarioCondicion(@Param('id_usuario_condicion') id_usuario_condicion: number) {
     return await this.crisisService.findByUsuarioCondicion(id_usuario_condicion);
   }
 }

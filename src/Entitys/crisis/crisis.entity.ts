@@ -13,8 +13,8 @@ export class Crisis {
   @Column({ type: 'varchar', length: 550 })
   descripcion: string;
 
-  @Column({ type: 'varchar'})
-  id_usuario_condicion: string;
+  @Column({ type: 'number'})
+  id_usuario_condicion: number;
 
   @Column()
   duracion: number;

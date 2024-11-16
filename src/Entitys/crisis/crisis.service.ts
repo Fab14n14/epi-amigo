@@ -33,7 +33,7 @@ export class CrisisService {
     await this.crisisRepository.delete(id);
   }
 
-  async findByUsuarioCondicion(id_usuario_condicion: string ): Promise<Crisis[]> {
+  async findByUsuarioCondicion(id_usuario_condicion: number ): Promise<Crisis[]> {
     return this.crisisRepository.find({
       where: { id_usuario_condicion },
     });
