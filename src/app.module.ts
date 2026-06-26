@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 import { UsuarioCondicion } from './Entitys/Usuario_condicion/usuarios-condicion.entity';
 import { MedicamentosModule } from './Entitys/medicamentos/medicamentos.module';
 import { CondicionesModule } from './Entitys/condiciones/condiciones.module';
@@ -15,23 +15,12 @@ import { RecursosModule } from './Entitys/recursos/recursos.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: (config: ConfigService) => {
-        console.log('Conectando a la base de datos:', config.get<string>('DATABASE_NAME')); // Verificación de conexión
-        return {
-          type: 'postgres',
-          host: config.get<string>('DATABASE_HOST'),
-          port: config.get<number>('DATABASE_PORT'),
-          username: config.get<string>('DATABASE_USER'),
-          password: config.get<string>('DATABASE_PASSWORD'),
-          database: config.get<string>('DATABASE_NAME'),
-          autoLoadEntities: true, // Carga automática de entidades
-          synchronize: false, // Solo para desarrollo, ¡cuidado con producción!
-          logging: true, // Activa logging de consultas SQL
-        };
-      },
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      url: process.env.DATABASE_URL,
+      ssl: process.env.DATABASE_URL ? { rejectUnauthorized: false } : false,
+      entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      synchronize: false,
     }),
     TypeOrmModule.forFeature([UsuarioCondicion, Medicamento]), // Registra las entidades necesarias
     MedicamentosModule,
