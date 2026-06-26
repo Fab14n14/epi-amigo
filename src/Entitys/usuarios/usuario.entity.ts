@@ -27,8 +27,8 @@ export class Usuario {
   @Column({ length: 50 })
   contrasena: string ;
 
-  @Column({ unique: false })
-  token_dispositivo: string;
+  @Column({ unique: false, nullable: true })
+  token_dispositivo: string | null;
 
   @Column({ unique: false })
   tipo_perfil: string;

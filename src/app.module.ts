@@ -7,19 +7,14 @@ import { CondicionesModule } from './Entitys/condiciones/condiciones.module';
 import { UsuarioModule } from './Entitys/usuarios/usuario.module';
 import { ContactosEmergenciaModule } from './Entitys/contactos-emergencia/contactos-emergencia.module'; // Asegúrate de que esta ruta sea correcta
 import { Medicamento } from './Entitys/medicamentos/medicamento.entity';
-import { join } from 'path'; // Para manejar rutas de archivos
 import { CrisisModule } from './Entitys/crisis/crisis.module';
 import { SintomasModule } from './Entitys/sintomas/sintomas.module'; 
 import { UsuarioTipoCondicionModule } from './Entitys/UsuarioTipoCondicion/UsuarioTipoCondicion.module';
 import { RecursosModule } from './Entitys/recursos/recursos.module';
-import { Recursos } from './Entitys/recursos/recursos.entity';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      isGlobal: true, // Las variables de entorno estarán disponibles globalmente
-      envFilePath: join(__dirname, '..', 'config.env'), // Ruta del archivo de entorno
-    }),
+    ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -45,9 +40,8 @@ import { Recursos } from './Entitys/recursos/recursos.entity';
     ContactosEmergenciaModule,
     CrisisModule ,
     SintomasModule ,
-    UsuarioTipoCondicionModule ,RecursosModule
-    ,Recursos
-    ,
+    UsuarioTipoCondicionModule,
+    RecursosModule,
    
   ],
 })

@@ -57,7 +57,10 @@ export class UsuariosCondicionService {
   } 
 
   create(usuario: Partial<UsuarioCondicion>): Promise<UsuarioCondicion> {
-    const newUser = this.usuarioCondicionRepository.create(usuario);
+    const newUser = this.usuarioCondicionRepository.create({
+      ...usuario,
+      codeqr: usuario.codeqr ?? `QR-${Math.random().toString(36).slice(2, 10).toUpperCase()}`,
+    });
     return this.usuarioCondicionRepository.save(newUser);
   }
 

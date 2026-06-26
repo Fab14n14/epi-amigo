@@ -48,7 +48,7 @@ export class ContactoEmergenciaService {
   async findByUsuarioCondicion(id_usuario_condicion: number): Promise<ContactoEmergencia[]> {
     return this.contactoRepository.find({
       where: { usuarioCondicion: { id_usuario_condicion } },
-      relations: ['usuario'], // Carga la relación con el usuario que es el contacto
+      relations: ['usuario', 'usuarioCondicion', 'usuarioCondicion.usuario'],
     });
   }
 
