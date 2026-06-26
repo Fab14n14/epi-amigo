@@ -17,7 +17,7 @@ import { RecursosModule } from './Entitys/recursos/recursos.module';
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      url: process.env.DATABASE_URL,
+      url: process.env.DATABASE_PUBLIC_URL ?? process.env.DATABASE_URL,
       ssl: process.env.DATABASE_URL ? { rejectUnauthorized: false } : false,
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: false,
