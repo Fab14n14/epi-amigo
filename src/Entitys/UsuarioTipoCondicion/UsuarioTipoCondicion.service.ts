@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UsuarioTipoCondicion } from '../UsuarioTipoCondicion/UsuarioTipoCondicion.entity';
-import { UsuarioCondicion } from '../Usuario_Condicion/usuarios-condicion.entity';  // Asegúrate de importar la entidad UsuarioCondicion
-import { Condicion } from '../Condiciones/condiciones.entity';  // Asegúrate de importar la entidad Condicion
+import { UsuarioCondicion } from '../Usuario_condicion/usuarios-condicion.entity';
+import { Condicion } from '../condiciones/condiciones.entity';
 
 @Injectable()
 export class UsuarioTipoCondicionService {
